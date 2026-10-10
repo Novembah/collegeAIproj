@@ -1,6 +1,6 @@
 #include <iostream>
-#include <execution>
 #include <vector>
+#include <algorithm>
 #include <random>
 #include <functional>
 
@@ -33,7 +33,11 @@ public:
 	}
 
 	double fire() {
-		
+		double currentThreshold = bias;
+		for (int i : weights) {
+			currentThreshold += weights[i] * inputs[i];
+		}
+		if (currentThreshold < )
 	}
 
 };
