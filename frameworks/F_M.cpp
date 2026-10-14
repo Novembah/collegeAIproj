@@ -3,6 +3,37 @@
 #include <algorithm>
 #include <random>
 #include <functional>
+#include <numeric>
+#include <cmath>
+
+std::vector<double> Zscale(std::vector<double> &data) 
+{
+	// Scaling algorithm for data, using Standardization
+	std::vector<double> result(data.size());
+	if(data.empty()) { return result; }
+
+	// Getting data set mean (greek letter Mu)
+	double dataSum = std::accumulate(data.begin(), data.end(), 0.0);
+	double Mu = dataSum / (double)data.size();
+
+	// Getting population standard deviation(greek letter sigma)
+	double Sigma_SIGMA = 0.0;
+	for(double x : data) 
+	{
+		Sigma_SIGMA += (x - Mu) * (x - Mu);
+	}
+	double Sigma = sqrt(Sigma_SIGMA / (double)data.size());
+
+	// Division by zero guard
+	if (Sigma == 0) { return result; }
+
+	// Applying the Zscaling formula to the data and putting it in the result vector
+	for(int i = 0; i < data.size(); i++) 
+	{
+		result[i] = (data[i] - Mu) / Sigma;
+	}
+	return result;
+}
 
 double random() {
 	std::random_device rd;
@@ -37,7 +68,7 @@ public:
 		for (int i : weights) {
 			currentThreshold += weights[i] * inputs[i];
 		}
-		if (currentThreshold < )
+		if (currentThreshold < 3)
 	}
 
 };
